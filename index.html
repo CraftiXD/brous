@@ -1,0 +1,1013 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07110a">
+<meta name="description" content="BROUS — una página para descubrir a tus Brous y descargar Minecraft.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>BROUS — YouTubers & Minecraft</title>
+<style>
+:root{
+  --bg:#07090d;--panel:rgba(255,255,255,.075);--panel2:rgba(255,255,255,.11);
+  --text:#f7f9ff;--muted:#b8becb;--line:rgba(255,255,255,.16);
+  --glass:rgba(255,255,255,.085);--glass-strong:rgba(255,255,255,.12);
+  --shadow:0 24px 70px rgba(0,0,0,.38)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:auto}
+body{
+  margin:0;min-height:100vh;color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#07090d url('https://staticg.sportskeeda.com/editor/2023/12/e1bbf-17023514694231-1920.jpg') center/cover no-repeat;
+  background-attachment:scroll;
+  overflow-x:hidden;
+  position:relative;
+}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(8,10,16,.24),rgba(8,10,16,.60) 72%,rgba(8,10,16,.76));}
+a{text-decoration:none;color:inherit}
+button{font:inherit}
+.shell{width:min(1080px,calc(100% - 28px));margin:auto}
+.topbar{position:sticky;top:0;z-index:30;border-bottom:1px solid rgba(255,255,255,.12);background:rgba(12,16,22,.78);box-shadow:0 4px 12px rgba(0,0,0,.16)}
+.topbar-inner{height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.topbar.is-hidden{display:none}
+.topbar.is-hidden + main .panel{scroll-margin-top:18px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:950;letter-spacing:.1em}
+.brand-icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(255,255,255,.06));border:1px solid rgba(255,255,255,.18);box-shadow:inset 0 1px 1px rgba(255,255,255,.2),0 10px 30px rgba(0,0,0,.18);font-size:18px}
+.creeper-svg{width:26px;height:26px;display:block;shape-rendering:crispEdges}.creeper-brand .creeper-svg{width:24px;height:24px}.creeper-mc .creeper-svg{width:30px;height:30px}
+.brand small{display:block;color:var(--muted);font-size:8px;letter-spacing:.14em;margin-top:2px}
+.youtube-badge{font-size:11px;font-weight:850;padding:9px 12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);border-radius:999px;box-shadow:inset 0 1px 1px rgba(255,255,255,.12)}
+.hero{padding:82px 0 54px;text-align:center}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(255,255,255,.06);font-size:10px;font-weight:900;letter-spacing:.16em;color:#e9edf7;box-shadow:inset 0 1px 1px rgba(255,255,255,.1),0 10px 30px rgba(0,0,0,.12);}
+.hero-kicker i{width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 15px rgba(255,255,255,.8);display:block}
+.hero h1{font-size:clamp(44px,9vw,86px);line-height:.95;letter-spacing:-.06em;margin:20px 0 14px}
+.hero h1 span{background:linear-gradient(100deg,#fff,#d8ddff 38%,#b9c3ff 72%,#fff);background-clip:text;-webkit-background-clip:text;color:transparent}
+.hero p{max-width:680px;margin:0 auto;color:#c1cbc4;font-size:15px;line-height:1.7}
+.actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:820px;margin:30px auto 0}
+.main-card{contain:layout paint;border:1px solid rgba(255,255,255,.15);cursor:pointer;padding:22px 20px;border-radius:22px;font-size:14px;font-weight:950;color:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;min-height:112px;background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.052));box-shadow:inset 0 1px 1px rgba(255,255,255,.14),0 10px 24px rgba(0,0,0,.16);transition:transform .12s ease,border-color .12s ease;position:relative;overflow:hidden}
+.main-card:hover{transform:translateY(-3px);box-shadow:inset 0 1px 1px rgba(255,255,255,.16),0 12px 26px rgba(0,0,0,.20);border-color:rgba(255,255,255,.25)}
+.main-card::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.12),transparent 30%,transparent 68%,rgba(255,255,255,.035));pointer-events:none}
+.main-card .card-icon{line-height:1}
+.icon{width:28px;height:28px;display:block;flex:none;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.icon-sm{width:16px;height:16px;stroke-width:2}
+.card-icon{width:30px;height:30px;display:grid;place-items:center}
+.social-icon .brand-icon-svg{width:25px;height:25px;display:block;fill:currentColor}
+.mc-icon .icon{width:25px;height:25px}
+.open .icon{width:16px;height:16px}
+
+.main-card .card-label{font-size:15px;letter-spacing:-.02em}
+.main-card.brous,.main-card.social,.main-card.more{background:linear-gradient(145deg,rgba(255,255,255,.115),rgba(255,255,255,.035));border-color:rgba(255,255,255,.16)}
+.version{margin:15px auto 0;text-align:center;color:#c4c8d2;font-size:11px;font-weight:800;letter-spacing:.12em;text-shadow:0 1px 8px rgba(0,0,0,.22)}
+.social-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.social-card{display:flex;align-items:center;gap:14px;padding:18px;border:1px solid rgba(255,255,255,.12);border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.078),rgba(255,255,255,.034));transition:transform .12s ease,border-color .12s ease;box-shadow:inset 0 1px 1px rgba(255,255,255,.08);position:relative;overflow:hidden;isolation:isolate}.social-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 8% 50%,var(--social-glow),transparent 50%);opacity:.18;pointer-events:none;z-index:-1}.social-card::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.045),transparent 34%,transparent 72%,var(--social-glow-soft));pointer-events:none}
+.social-card:hover{transform:translateY(-2px);background:linear-gradient(145deg,rgba(255,255,255,.105),rgba(255,255,255,.035))}
+.social-icon{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:21px;flex:none}
+.social-icon.discord{color:#fff;background:linear-gradient(145deg,rgba(104,116,255,.82),rgba(71,82,196,.72));box-shadow:0 12px 28px rgba(88,101,242,.14);border:1px solid rgba(255,255,255,.16)}
+.social-icon.whatsapp{color:#fff;background:linear-gradient(145deg,rgba(37,211,102,.84),rgba(18,145,63,.72));box-shadow:0 12px 28px rgba(37,211,102,.12);border:1px solid rgba(255,255,255,.16)}
+.social-card h3{margin:0 0 3px;font-size:15px}.social-card p{margin:0;color:var(--muted);font-size:10px;line-height:1.5}
+.section{padding:30px 0 70px}
+.panel{contain:layout paint;display:none;border:1px solid rgba(255,255,255,.15);border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.095),rgba(255,255,255,.042));box-shadow:inset 0 1px 1px rgba(255,255,255,.11),0 14px 34px rgba(0,0,0,.20);padding:20px;position:relative;overflow:hidden;scroll-margin-top:84px}.panel::before{content:"";position:absolute;inset:0;background:linear-gradient(130deg,rgba(255,255,255,.045),transparent 36%,transparent 70%,rgba(255,255,255,.018));pointer-events:none}
+.panel.show{display:block}
+.panel-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:18px}
+.panel-head h2{margin:4px 0 0;font-size:30px;letter-spacing:-.04em}
+.panel-head p{margin:0;color:var(--muted);font-size:11px}
+.label{font-size:9px;font-weight:950;letter-spacing:.16em;color:#e4e8f2}
+.creator-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.creator{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;padding:16px;border:1px solid rgba(255,255,255,.12);border-radius:20px;background:linear-gradient(110deg,rgba(255,255,255,.075),rgba(255,255,255,.035) 48%,rgba(255,255,255,.025));transition:transform .12s ease,border-color .12s ease;position:relative;contain:layout paint;overflow:hidden;box-shadow:inset 0 1px 1px rgba(255,255,255,.08)}
+.creator::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 0% 50%,var(--accent,#ffffff),transparent 52%);opacity:.08;pointer-events:none}
+.creator::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.05),rgba(7,10,15,.08) 40%,rgba(7,10,15,.22) 100%);pointer-events:none}
+.creator:hover{transform:translateY(-2px);background:linear-gradient(145deg,rgba(255,255,255,.105),rgba(255,255,255,.035))}
+.creator>*{position:relative;z-index:1}
+.avatar{width:62px;height:62px;border-radius:17px;object-fit:cover;display:block;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);box-shadow:0 5px 14px rgba(0,0,0,.16);contain:paint}
+.creator-name{font-size:16px;font-weight:900;margin:0 0 3px}.creator-handle{color:var(--muted);font-size:10px;margin:0}.creator-desc{margin:4px 0 0;color:#aeb7c6;font-size:9px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.creator-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.creator-handle{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.open{width:38px;height:38px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);border-radius:13px;display:grid;place-items:center;color:#f3f6ff;font-weight:950;box-shadow:inset 0 1px 1px rgba(255,255,255,.12)}
+.mc-card{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:24px;border-radius:22px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.03));box-shadow:inset 0 1px 1px rgba(255,255,255,.11);}
+.mc-left{display:flex;align-items:center;gap:15px}.mc-icon{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.06));font-size:24px;box-shadow:inset 0 1px 1px rgba(255,255,255,.14),0 12px 28px rgba(0,0,0,.12);border:1px solid rgba(255,255,255,.14)}
+.mc-card h3{margin:0 0 4px;font-size:18px}.mc-card p{margin:0;color:var(--muted);font-size:11px;line-height:1.5}
+.download{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:13px;color:#f7f9ff;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);font-weight:950;font-size:12px;white-space:nowrap;box-shadow:inset 0 1px 1px rgba(255,255,255,.12)}
+.note{margin-top:13px;color:#95a29a;font-size:10px;line-height:1.6}
+.footer{padding:0 0 40px;text-align:center;color:#9fa6b3;font-size:10px}.footer a{color:#dce2ef}
+@media(prefers-reduced-motion:reduce){.main-card,.creator,.social-card{transition:none}}
+@media(max-width:520px){.topbar{background:rgba(12,16,22,.88)}.main-card,.panel{box-shadow:0 8px 20px rgba(0,0,0,.16)}}
+@media(max-width:740px){.main-card:hover,.creator:hover,.social-card:hover{transform:none}}
+@media(max-width:740px){.shell{width:min(100% - 18px,1080px)}.hero{padding:58px 0 35px}.hero p{font-size:13px}.actions{grid-template-columns:1fr}.social-grid{grid-template-columns:1fr}.creator-grid{grid-template-columns:1fr}.mc-card{align-items:flex-start;flex-direction:column}.download{width:100%}.panel-head{align-items:flex-start;flex-direction:column}.panel-head h2{font-size:26px}}
+@media(max-width:430px){.topbar-inner{height:62px}.youtube-badge{display:none}.brand-icon{width:34px;height:34px}.hero h1{font-size:52px}.main-card{min-height:96px}.panel{padding:14px}.creator{grid-template-columns:auto 1fr auto}.creator .open{grid-column:auto;width:36px;height:36px;margin-top:0}.avatar{width:56px;height:56px}}
+
+.tool-groups{display:grid;gap:18px;margin-top:18px}
+.tool-group{padding:17px;border:1px solid rgba(255,255,255,.10);border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.050),rgba(255,255,255,.025));box-shadow:inset 0 1px 1px rgba(255,255,255,.06);content-visibility:auto;contain-intrinsic-size:220px}
+.tool-group-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:11px}
+.tool-group-head h3{margin:3px 0 0;font-size:17px;letter-spacing:-.02em}
+.tool-group-head p{margin:0;color:var(--muted);font-size:10px}
+.tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tool-card{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:11px;min-width:0;padding:13px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(255,255,255,.052);box-shadow:inset 0 1px 1px rgba(255,255,255,.06);transition:transform .12s ease,border-color .12s ease,background .12s ease}
+.tool-card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.22);background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.032))}
+.tool-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:13px;background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.11);color:#fff;box-shadow:inset 0 1px 1px rgba(255,255,255,.08)}
+.tool-icon .icon{width:21px;height:21px;stroke-width:1.85}
+.tool-card h4{margin:0 0 3px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tool-card p{margin:0;color:var(--muted);font-size:9px;line-height:1.45}
+.tool-tag{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;padding:5px 7px;border-radius:999px;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.055);color:#dce2ef;font-size:8px;font-weight:900;letter-spacing:.06em}
+.tool-open{width:28px;height:28px;border-radius:10px;display:grid;place-items:center;color:#f3f6ff;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1)}
+.tool-open .icon{width:14px;height:14px;stroke-width:2}
+.tools-note{margin-top:13px;padding:11px 12px;border-radius:15px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.035);color:#aeb7c6;font-size:9px;line-height:1.55}
+@media(max-width:740px){.tool-grid{grid-template-columns:1fr}.tool-group-head{align-items:flex-start;flex-direction:column}}
+@media(max-width:430px){.tool-group{padding:13px}.tool-card{grid-template-columns:37px 1fr auto;padding:11px}.tool-icon{width:37px;height:37px;border-radius:12px}.tool-card h4{font-size:12px}.tool-card p{font-size:8.5px}.tool-tag{display:none}}
+
+</style>
+
+<style id="brous-black-pro">
+/* ===== BROUS · tema negro translúcido (v2) ===== */
+:root{
+  --ink:#060807;
+  --surface:rgba(9,11,10,.78);
+  --surface-2:rgba(255,255,255,.04);
+  --surface-3:rgba(255,255,255,.075);
+  --line:rgba(255,255,255,.10);
+  --line-strong:rgba(255,255,255,.2);
+  --text:#f1f3f0;
+  --muted:#a2aaa4;
+  --grass:#6fcf4f;
+  --grass-ink:#0d1a09;
+  --display:"Bricolage Grotesque",Figtree,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --body:Figtree,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{
+  background:var(--ink);
+  font-family:var(--body);
+  color:var(--text);
+  -webkit-tap-highlight-color:transparent;
+  line-height:1.5;
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:url('https://staticg.sportskeeda.com/editor/2023/12/e1bbf-17023514694231-1920.jpg') center/cover no-repeat;
+}
+body::before{
+  background:linear-gradient(180deg,rgba(0,0,0,.52),rgba(0,0,0,.76) 50%,rgba(0,0,0,.9));
+}
+:focus-visible{outline:2px solid var(--grass);outline-offset:3px;border-radius:8px}
+
+/* ---- barra superior ---- */
+.topbar{
+  background:rgba(6,8,7,.78);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  box-shadow:none;
+}
+.topbar-inner{height:64px}
+.brand{font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:.04em;line-height:1.1}
+.brand small{font-family:var(--body);font-size:12px;font-weight:500;letter-spacing:0;color:var(--muted);margin-top:2px}
+.brand-icon{background:rgba(255,255,255,.06);border:1px solid var(--line);box-shadow:none;border-radius:10px}
+.top-link{
+  font-size:13px;font-weight:600;color:var(--muted);
+  padding:8px 13px;border:1px solid var(--line);border-radius:10px;
+  transition:color .15s,border-color .15s,background .15s;
+}
+.top-link:hover{color:var(--text);border-color:var(--line-strong);background:var(--surface-2)}
+
+/* ---- portada ---- */
+.hero{max-width:960px;margin:0 auto;padding:48px 0 36px;text-align:left}
+.hero h1{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(40px,7.2vw,72px);line-height:1.02;letter-spacing:-.03em;
+  color:#fff;margin:0 0 14px;
+}
+.hero p{max-width:36rem;margin:0 0 28px;color:#c4cbc6;font-size:clamp(15px,2.2vw,18px);line-height:1.6}
+
+@media(min-width:960px){
+  .hero{
+    max-width:none;
+    display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);
+    grid-template-areas:"title video" "copy video" "nav video";
+    grid-template-rows:auto auto 1fr;
+    column-gap:44px;padding:56px 0 48px;
+  }
+  .hero h1{grid-area:title;font-size:clamp(44px,5vw,64px);margin:0 0 16px;align-self:end}
+  .hero>p{grid-area:copy;margin:0 0 26px}
+  .featured{grid-area:video;align-self:center}
+  .hero .actions{grid-area:nav;grid-template-columns:1fr;margin:0;align-self:start}
+}
+
+/* ---- reproductor ---- */
+.featured{margin:0}
+.player{
+  position:relative;aspect-ratio:16/9;width:100%;
+  border-radius:20px;overflow:hidden;background:#0a0e0b;
+  border:1px solid var(--line);
+  box-shadow:0 26px 70px rgba(0,0,0,.55);
+}
+.player [hidden]{display:none!important}
+.player-poster{
+  position:absolute;inset:0;width:100%;height:100%;padding:0;margin:0;border:0;
+  background:#000;cursor:pointer;display:block;color:inherit;
+}
+.player-poster img{width:100%;height:100%;object-fit:cover;display:block;opacity:.78;transition:opacity .25s,transform .5s}
+.player-poster::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.45))}
+.player-poster:hover img{opacity:.92;transform:scale(1.015)}
+.play{
+  position:absolute;z-index:1;left:50%;top:50%;width:clamp(64px,11vw,92px);aspect-ratio:1;
+  transform:translate(-50%,-50%);border-radius:50%;
+  background:var(--grass);display:grid;place-items:center;
+  box-shadow:0 12px 34px rgba(0,0,0,.5),0 0 0 8px rgba(111,207,79,.18);
+  transition:transform .18s,box-shadow .18s;
+}
+.play svg{width:42%;height:42%;fill:var(--grass-ink);margin-left:6%}
+.player-poster:hover .play{transform:translate(-50%,-50%) scale(1.07);box-shadow:0 12px 34px rgba(0,0,0,.5),0 0 0 12px rgba(111,207,79,.2)}
+.player-poster:active .play{transform:translate(-50%,-50%) scale(.97)}
+.player-stage{position:absolute;inset:0;background:#000}
+.player-stage iframe{display:block;width:100%;height:100%;border:0}
+.player.is-loading::after{
+  content:"";position:absolute;z-index:2;left:50%;top:50%;width:38px;height:38px;margin:-19px 0 0 -19px;
+  border:3px solid rgba(255,255,255,.22);border-top-color:var(--grass);border-radius:50%;
+  animation:brous-spin .8s linear infinite;
+}
+@keyframes brous-spin{to{transform:rotate(360deg)}}
+.player-fallback{
+  position:absolute;inset:0;z-index:3;background:#0a0c0b;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:10px;
+  padding:clamp(18px,5vw,48px);
+}
+.fb-title{color:#fff!important;margin:0!important;font-family:var(--display);font-weight:800;font-size:clamp(20px,3.4vw,28px);color:#fff}
+.fb-text{margin:0!important;max-width:34rem!important;color:var(--muted)!important;font-size:clamp(13px,2vw,15px)!important;line-height:1.55!important}
+.fb-btn,.fb-retry{
+  font:inherit;font-size:14px;font-weight:700;border-radius:10px;padding:11px 18px;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.fb-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.fb-btn{background:var(--grass);color:var(--grass-ink);border:0}
+.fb-btn:hover{filter:brightness(1.08)}
+.fb-retry{background:transparent;color:var(--text);border:1px solid var(--line-strong)}
+.fb-retry:hover{background:var(--surface-3)}
+.noscript{margin:10px 0 0;font-size:14px}
+
+/* ---- accesos principales ---- */
+.actions{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;
+  max-width:none;margin:14px 0 0;
+}
+.main-card{
+  flex-direction:row;justify-content:flex-start;align-items:center;text-align:left;gap:13px;
+  min-height:0;padding:15px 16px;border-radius:14px;
+  background:var(--surface);border:1px solid var(--line);box-shadow:none;color:var(--text);
+  transition:background .15s,border-color .15s;
+}
+.main-card::after{display:none}
+.main-card.brous,.main-card.social,.main-card.more{background:var(--surface);border-color:var(--line)}
+.main-card:hover{transform:none;background:rgba(22,26,24,.88);border-color:var(--line-strong);box-shadow:none}
+.main-card[aria-expanded="true"]{border-color:var(--grass);background:rgba(111,207,79,.09)}
+.main-card .card-icon{width:38px;height:38px;border-radius:10px;background:var(--surface-3);border:1px solid var(--line);flex:none}
+.main-card .icon{width:20px;height:20px}
+.main-card[aria-expanded="true"] .card-icon{color:var(--grass);border-color:rgba(111,207,79,.4)}
+.card-text{display:flex;flex-direction:column;gap:1px;min-width:0}
+.main-card .card-label{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.01em;line-height:1.2}
+.card-sub{font-size:13px;font-weight:500;color:var(--muted);line-height:1.3}
+
+/* ---- paneles ---- */
+.section{padding:20px 0 64px}
+.panel{
+  max-width:960px;margin:0 auto 0;
+  padding:26px;border-radius:20px;
+  background:var(--surface);border:1px solid var(--line);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
+}
+.panel::before{display:none}
+.panel-head{padding-right:46px;margin-bottom:20px;align-items:flex-end}
+.panel-head h2{font-family:var(--display);font-weight:800;font-size:clamp(25px,4.4vw,34px);letter-spacing:-.02em;margin:0;line-height:1.1}
+.panel-head p{font-size:14px;color:var(--muted);max-width:26rem;line-height:1.45}
+.panel-close{
+  position:absolute;z-index:2;top:16px;right:16px;width:38px;height:38px;padding:0;
+  display:grid;place-items:center;border-radius:10px;cursor:pointer;
+  color:var(--muted);background:var(--surface-2);border:1px solid var(--line);
+  transition:color .15s,background .15s,border-color .15s;
+}
+.panel-close:hover{color:#fff;background:var(--surface-3);border-color:var(--line-strong)}
+.panel-close .icon{width:18px;height:18px}
+
+/* canales */
+.creator-grid,.secondary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.creator{
+  grid-template-columns:auto minmax(0,1fr) auto;gap:14px;padding:14px;
+  border-radius:14px;background:var(--surface-2);border:1px solid var(--line);box-shadow:none;
+  transition:background .15s,border-color .15s;
+}
+.creator::before,.creator::after{display:none}
+.creator:hover{transform:none;background:var(--surface-3);border-color:var(--line-strong)}
+.avatar{
+  width:58px;height:58px;border-radius:14px;box-shadow:none;background:#111513;
+  border:2px solid color-mix(in srgb,var(--accent,#fff) 65%,transparent);
+}
+.creator-name{font-size:16px;font-weight:700;margin:0 0 2px}
+.creator-handle{font-size:13px;color:var(--muted)}
+.creator-desc{font-size:13px;line-height:1.45;color:#b5bcb7;margin-top:5px}
+.open{width:34px;height:34px;border-radius:10px;background:transparent;border:1px solid var(--line);color:var(--muted);box-shadow:none;transition:color .15s,border-color .15s}
+.creator:hover .open{color:#fff;border-color:var(--line-strong)}
+.open .icon{width:15px;height:15px}
+.secondary-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  margin:26px 0 12px;padding-top:22px;border-top:1px solid var(--line);
+}
+.secondary-head h3{margin:0;font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.01em}
+.secondary-head p{margin:0;font-size:13px;color:var(--muted)}
+
+/* social */
+.social-grid{gap:10px}
+.social-card{padding:18px;border-radius:14px;background:var(--surface-2);border:1px solid var(--line);box-shadow:none;transition:background .15s,border-color .15s}
+.social-card::before,.social-card::after{display:none}
+.social-card:hover{transform:none;background:var(--surface-3);border-color:var(--line-strong)}
+.social-icon{width:48px;height:48px;border-radius:12px;box-shadow:none}
+.social-card h3{font-size:17px;font-weight:700;margin:0 0 2px}
+.social-card p{font-size:14px;color:var(--muted);line-height:1.4}
+
+/* más: descarga y herramientas */
+.mc-card{padding:20px;border-radius:14px;background:var(--surface-2);border:1px solid var(--line);box-shadow:none}
+.mc-icon{width:52px;height:52px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid var(--line);box-shadow:none}
+.mc-card h3{font-family:var(--display);font-weight:800;font-size:20px;margin:0 0 3px}
+.mc-card p{font-size:14px;color:var(--muted)}
+.download{
+  gap:8px;padding:13px 20px;border-radius:10px;font-size:14px;font-weight:700;
+  background:var(--grass);color:var(--grass-ink);border:0;box-shadow:none;transition:filter .15s;
+}
+.download:hover{filter:brightness(1.08)}
+.download .icon{width:16px;height:16px}
+
+.tool-groups{gap:12px;margin-top:12px}
+.tool-group{padding:18px;border-radius:14px;background:var(--surface-2);border:1px solid var(--line);box-shadow:none}
+.tool-group-head{margin-bottom:14px;align-items:baseline}
+.tool-group-head h3{margin:0;font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.01em}
+.tool-group-head p{font-size:13px;color:var(--muted)}
+.tool-card{
+  grid-template-columns:42px minmax(0,1fr) auto auto;
+  padding:12px;border-radius:12px;gap:12px;background:rgba(0,0,0,.28);border:1px solid var(--line);box-shadow:none;
+  transition:background .15s,border-color .15s;
+}
+.tool-card:hover{transform:none;background:rgba(255,255,255,.07);border-color:var(--line-strong)}
+.tool-icon{width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid var(--line);box-shadow:none}
+.tool-icon.site-favicon{overflow:hidden}
+.tool-site-icon{width:24px;height:24px;filter:none}
+.tool-card h4{font-size:15px;font-weight:700;margin:0 0 2px}
+.tool-card p{font-size:13px;line-height:1.4;color:var(--muted)}
+.tool-tag{font-size:11px;font-weight:600;letter-spacing:0;padding:4px 9px;color:#cfd5d1;background:transparent;border:1px solid var(--line);box-shadow:none}
+.tool-open{width:28px;height:28px;background:transparent;border:1px solid var(--line);color:var(--muted);box-shadow:none}
+.tool-card:hover .tool-open{color:#fff;border-color:var(--line-strong)}
+.tools-note{margin-top:12px;padding:13px 15px;border-radius:12px;background:transparent;border:1px dashed var(--line);font-size:13px;line-height:1.55;color:var(--muted)}
+
+.footer{font-size:13px;color:#7f8782;padding-bottom:36px}
+.footer a{color:#c4cbc6;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(255,255,255,.25)}
+
+/* ---- adaptación a pantallas pequeñas ---- */
+@media(max-width:740px){
+  .shell{width:min(100% - 32px,1080px)}
+  .hero{padding:30px 0 28px}
+  .actions{grid-template-columns:1fr}
+  .player{border-radius:14px}
+  .panel{padding:18px;border-radius:16px}
+  .panel-head{padding-right:44px;flex-direction:column;align-items:flex-start;gap:6px}
+  .panel-close{top:12px;right:12px}
+  .creator-grid,.secondary-grid{grid-template-columns:1fr}
+  .tool-grid{grid-template-columns:1fr}
+  .tool-group{padding:14px}
+  .tool-group-head{flex-direction:column;align-items:flex-start;gap:2px}
+}
+@media(max-width:520px){
+  .top-link{display:none}
+}
+@media(max-width:430px){
+  .hero h1{font-size:clamp(38px,12vw,52px)}
+  .main-card{padding:13px 14px}
+  .avatar{width:52px;height:52px}
+  .tool-card{grid-template-columns:40px minmax(0,1fr) auto;padding:11px}
+  .tool-icon{width:40px;height:40px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation-duration:.01ms!important}
+  .player-poster:hover img{transform:none}
+}
+
+</style>
+</head>
+<body>
+<header class="topbar" id="top">
+  <div class="shell topbar-inner">
+    <a class="brand" href="#top" aria-label="BROUS, inicio">
+      <span class="brand-icon creeper-brand" aria-hidden="true">
+        <svg class="creeper-svg" viewBox="0 0 24 24" role="img" aria-label="Creeper">
+          <rect x="2" y="2" width="20" height="20" rx="3" fill="#67d34a"/>
+          <path fill="#103819" d="M5 5h5v5H5zm9 0h5v5h-5zm-4 5h4v3h-4zm-2 2h2v7H8zm6 0h2v7h-2zm-4 3h4v4h-4z"/>
+        </svg>
+      </span>
+      <span>BROUS<small>Youtubers y Minecraft</small></span>
+    </a>
+    <a class="top-link" href="https://m.youtube.com/watch?v=DcDzzTz1cxs" target="_blank" rel="noopener noreferrer">Abrir video en YouTube</a>
+  </div>
+</header>
+
+<main class="shell">
+  <section class="hero">
+    <h1>Bienvenido a BROUS</h1>
+    <p>Los canales de tus brous, la descarga de Minecraft y las herramientas que más se usan en Java y Bedrock, todo en un solo sitio.</p>
+
+    <section class="featured" aria-label="Video destacado">
+      <div class="player" id="player" data-video="DcDzzTz1cxs">
+        <button class="player-poster" id="playBtn" type="button" aria-label="Reproducir el video destacado">
+          <img id="posterImg" src="https://i.ytimg.com/vi/DcDzzTz1cxs/hqdefault.jpg" alt="" decoding="async">
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.2v13.6a1 1 0 0 0 1.5.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2z"/></svg></span>
+        </button>
+        <div class="player-stage" id="stage" hidden></div>
+        <div class="player-fallback" id="fallback" role="status" hidden>
+          <p class="fb-title">No se pudo reproducir aquí</p>
+          <p class="fb-text" id="fbText">YouTube no dejó cargar el video dentro de la página.</p>
+          <div class="fb-actions">
+            <a class="fb-btn" href="https://m.youtube.com/watch?v=DcDzzTz1cxs" target="_blank" rel="noopener noreferrer">Ver en YouTube</a>
+            <button class="fb-retry" id="retryBtn" type="button">Intentar de nuevo</button>
+          </div>
+        </div>
+      </div>
+      <noscript><p class="noscript"><a href="https://m.youtube.com/watch?v=DcDzzTz1cxs">Ver el video en YouTube</a></p></noscript>
+    </section>
+
+    <nav class="actions" aria-label="Secciones">
+      <button class="main-card brous" id="showBrous" type="button" aria-controls="brousPanel" aria-expanded="false">
+        <span class="card-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>
+        <span class="card-text"><span class="card-label">Ver Brous</span><span class="card-sub">Canales de YouTube</span></span>
+      </button>
+      <button class="main-card social" id="showSocial" type="button" aria-controls="socialPanel" aria-expanded="false">
+        <span class="card-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg></span>
+        <span class="card-text"><span class="card-label">Social</span><span class="card-sub">Discord y WhatsApp</span></span>
+      </button>
+      <button class="main-card more" id="showMore" type="button" aria-controls="morePanel" aria-expanded="false">
+        <span class="card-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
+        <span class="card-text"><span class="card-label">Más</span><span class="card-sub">Descargas y herramientas</span></span>
+      </button>
+    </nav>
+  </section>
+
+  <section class="section" aria-live="polite">
+    <div class="panel" id="brousPanel">
+      <button class="panel-close" type="button" aria-label="Cerrar sección"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <div class="panel-head">
+        <div><h2>Canales principales</h2></div>
+        <p>Abre cualquiera para ir directamente a YouTube.</p>
+      </div>
+      <div class="creator-grid" id="creatorGrid" aria-live="polite"></div>
+
+      <div class="secondary-head">
+        <div><h3>Más canales para seguir</h3></div>
+        <p>Canales secundarios de algunos Brous.</p>
+      </div>
+      <div class="secondary-grid" id="secondaryGrid" aria-live="polite"></div>
+    </div>
+
+    <div class="panel" id="socialPanel">
+      <button class="panel-close" type="button" aria-label="Cerrar sección"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <div class="panel-head">
+        <div><h2>Mis comunidades</h2></div>
+        <p>Encuentra aquí Discord y el canal de WhatsApp de CraftiXD.</p>
+      </div>
+      <div class="social-grid">
+        <a class="social-card discord-card" style="--social-glow:rgba(88,101,242,.55);--social-glow-soft:rgba(88,101,242,.10)" href="https://discord.gg/Jz5BB6CFFM" target="_blank" rel="noopener noreferrer">
+          <div class="social-icon discord" aria-hidden="true"><svg class="brand-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.317 4.37a19.8 19.8 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.3 18.3 0 0 0-5.487 0 13 13 0 0 0-.617-1.25.08.08 0 0 0-.079-.037A19.7 19.7 0 0 0 3.677 4.37a.1.1 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.08.08 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.08.08 0 0 0 .084-.028 14 14 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13 13 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10 10 0 0 0 .372-.292.07.07 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.07.07 0 0 1 .078.01q.181.149.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.08.08 0 0 0 .084.028 19.8 19.8 0 0 0 6.002-3.03.08.08 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03M8.02 15.33c-1.182 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42-.02 1.333-.956 2.418-2.157 2.418m7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418"/></svg></div>
+          <div><h3>Discord</h3><p>Únete al servidor de la comunidad.</p></div>
+        </a>
+        <a class="social-card whatsapp-card" style="--social-glow:rgba(37,211,102,.50);--social-glow-soft:rgba(37,211,102,.09)" href="https://whatsapp.com/channel/0029VbDjV5DA89MbBahyny0o" target="_blank" rel="noopener noreferrer">
+          <div class="social-icon whatsapp" aria-hidden="true"><svg class="brand-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 24c-2.096 0-4.142-.547-5.945-1.588L.057 24l1.654-6.305A11.882 11.882 0 0 1 .157 11.712C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.48 11.82 11.82 0 0 1 3.48 8.413C23.94 18.387 18.604 23.84 12.05 24Z"/></svg></div>
+          <div><h3>CraftiXD</h3><p>Sigue el canal de CraftiXD en WhatsApp.</p></div>
+        </a>
+      </div>
+    </div>
+
+    <div class="panel" id="morePanel">
+      <button class="panel-close" type="button" aria-label="Cerrar sección"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <div class="panel-head">
+        <div><h2>Herramientas Minecraft</h2></div>
+        <p>Java, Bedrock, skins, mundos, texturas, FPS e IA.</p>
+      </div>
+
+      <div class="mc-card">
+        <div class="mc-left"><div class="mc-icon creeper-mc" aria-hidden="true">
+          <svg class="creeper-svg" viewBox="0 0 24 24" role="img" aria-label="Minecraft Creeper">
+            <rect x="2" y="2" width="20" height="20" rx="3" fill="#67d34a"/>
+            <path fill="#103819" d="M5 5h5v5H5zm9 0h5v5h-5zm-4 5h4v3h-4zm-2 2h2v7H8zm6 0h2v7h-2zm-4 3h4v4h-4z"/>
+          </svg>
+        </div><div><h3>Descargar Minecraft</h3><p>Abre la página de descarga de MCPEDL.</p></div></div>
+        <a class="download" href="https://mcpedl.org/downloading/" target="_blank" rel="noopener noreferrer">Descargar Minecraft <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+      </div>
+
+      <div class="tool-groups">
+
+        <div class="tool-group">
+          <div class="tool-group-head">
+            <div><h3>Addons y creación</h3></div>
+            <p>Herramientas web y de desarrollo</p>
+          </div>
+          <div class="tool-grid">
+            <a class="tool-card" href="https://bridge-core.app/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="m8 8 4-4 4 4M12 4v12"/><path d="M5 20h14M7 16h10"/></svg></div>
+              <div><h4>bridge.</h4><p>IDE para crear addons con JSON, autocompletado y validaciones.</p></div><span class="tool-tag">Bedrock</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://mctools.dev/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h16"/><path d="M18 10v4M16 12h4"/></svg></div>
+              <div><h4>Minecraft Creator Tools</h4><p>Crea, valida, previsualiza y empaqueta proyectos de Bedrock.</p></div><span class="tool-tag">Creador</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://wiki.bedrock.dev/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div>
+              <div><h4>Bedrock Wiki</h4><p>Guías, documentación, herramientas y recursos para addons.</p></div><span class="tool-tag">Wiki</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://bedrock.dev/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M8 12h8M12 8v8"/></svg></div>
+              <div><h4>bedrock.dev</h4><p>Referencia técnica de componentes, entidades, Molang, bloques y más.</p></div><span class="tool-tag">Docs</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://www.blockbench.net/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="m7 7 5-3 5 3v10l-5 3-5-3z"/><path d="m7 7 5 3 5-3M12 10v10"/></svg></div>
+              <div><h4>Blockbench</h4><p>Modelos, texturas, animaciones y skins desde el navegador.</p></div><span class="tool-tag">Modelos</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://snowstorm.app/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M5.5 5.5l13 13M18.5 5.5l-13 13"/></svg></div>
+              <div><h4>Snowstorm</h4><p>Editor visual para crear partículas de Bedrock.</p></div><span class="tool-tag">Partículas</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://jannisx11.github.io/dialogue-designer/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M5 5h14v10H9l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></div>
+              <div><h4>Dialogue Designer</h4><p>Crea diálogos interactivos para NPCs de Bedrock.</p></div><span class="tool-tag">NPC</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://chunker.app/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M5 5h6v6H5zM13 13h6v6h-6zM13 5h6v6h-6zM5 13h6v6H5z"/><path d="M11 8h2M8 11v2M16 11v2M11 16h2"/></svg></div>
+              <div><h4>Chunker</h4><p>Convierte mundos entre Java y Bedrock y ajusta su configuración.</p></div><span class="tool-tag">Conversión</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="tool-group">
+          <div class="tool-group-head">
+            <div><h3>Comandos y datapacks</h3></div>
+            <p>Utilidades técnicas</p>
+          </div>
+          <div class="tool-grid">
+            <a class="tool-card" href="https://mcstacker.net/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg></div>
+              <div><h4>MCStacker</h4><p>Generador avanzado de comandos para Java.</p></div><span class="tool-tag">Java</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://misode.github.io/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M6 4h12v16H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div>
+              <div><h4>Misode</h4><p>Generadores de loot, recetas, worldgen, datapacks y más.</p></div><span class="tool-tag">Java</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://www.minecraftmaps.com/tools" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="m9 9 6 2-2 6-6-2z"/></svg></div>
+              <div><h4>Minecraft Maps Tools</h4><p>290+ generadores y calculadoras para Java y Bedrock.</p></div><span class="tool-tag">290+</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://www.minecrafttools.net/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M5 5h14v14H5z"/><path d="M8 9h8M8 12h5M8 15h8"/></svg></div>
+              <div><h4>Minecraft Tools</h4><p>Generadores de comandos, JSON, partículas, skins y utilidades.</p></div><span class="tool-tag">Tools</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://vanillatweaks.net/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M6 4h12v16H6z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></div>
+              <div><h4>Vanilla Tweaks</h4><p>Selector de resource packs, datapacks y pequeños cambios para Java.</p></div><span class="tool-tag">Datapacks</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="tool-group">
+          <div class="tool-group-head">
+            <div><h3>Mapas y edición de mundos</h3></div>
+            <p>Explora y modifica tus mundos</p>
+          </div>
+          <div class="tool-grid">
+            <a class="tool-card" href="https://www.chunkbase.com/apps/seed-map" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M5 6h14v12H5z"/><path d="M9 10h.01M14 14h.01M8 15l3-3 2 2 3-4"/></svg></div>
+              <div><h4>Chunkbase</h4><p>Seeds, biomas, estructuras, slime chunks y mapas.</p></div><span class="tool-tag">Seeds</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://www.amuletmc.com/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="m5 17 7-12 7 12z"/><path d="M7 17h10M10 12h4"/></svg></div>
+              <div><h4>Amulet</h4><p>Editor y conversor de mundos para Java y Bedrock.</p></div><span class="tool-tag">Editor</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://www.worldpainter.net/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 18c4-7 8-10 16-12"/><path d="M4 19h16"/><path d="M7 9c2 1 3 2 4 4"/></svg></div>
+              <div><h4>WorldPainter</h4><p>Creador de mundos personalizados para Java.</p></div><span class="tool-tag">Java</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="tool-group">
+          <div class="tool-group-head">
+            <div><h3>Diseña tu personaje</h3></div>
+            <p>Edición y creación de skins</p>
+          </div>
+          <div class="tool-grid">
+            <a class="tool-card" href="https://www.planetminecraft.com/pmcskin3d/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 20c1.2-3.5 3.5-5 7-5s5.8 1.5 7 5"/></svg></div>
+              <div><h4>PMCSkin3D</h4><p>Editor 3D/2D para crear, editar y exportar skins.</p></div><span class="tool-tag">Skins</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://www.skindex.pro/editor/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M7 16l3-4 2 2 2-3 3 5"/></svg></div>
+              <div><h4>Skindex Editor</h4><p>Editor de skins con capas, pincel, color y descarga.</p></div><span class="tool-tag">Skins</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://www.minecraftskins.net/skineditor" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M6 4h12v16H6z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></div>
+              <div><h4>Minecraft Skin Editor</h4><p>Editor web rápido para subir, modificar y descargar skins.</p></div><span class="tool-tag">Skins</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://minecraft.novaskin.me/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M6 5h12v14H6z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></div>
+              <div><h4>Nova Skin</h4><p>Skins, texturas y recursos visuales desde el navegador.</p></div><span class="tool-tag">Skins</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="tool-group">
+          <div class="tool-group-head">
+            <div><h3>Packs más ligeros</h3></div>
+            <p>Para creadores de resource packs</p>
+          </div>
+          <div class="tool-grid">
+            <a class="tool-card" href="https://github.com/TBroz15/TesserPack" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="m13 3-8 10h6l-1 8 8-10h-6z"/></svg></div>
+              <div><h4>TesserPack</h4><p>Compila y optimiza packs de recursos y comportamiento.</p></div><span class="tool-tag">Bedrock</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://github.com/ComunidadAylas/PackSquash" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M5 8 12 4l7 4-7 4z"/><path d="M5 8v8l7 4 7-4V8M8 10l8 4"/></svg></div>
+              <div><h4>PackSquash</h4><p>Optimiza resource packs y datapacks para Java.</p></div><span class="tool-tag">Java</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://www.minecraft.net/es-mx/creator/tools" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M5 5h14v14H5z"/><path d="m8 16 3-4 2 2 3-5"/></svg></div>
+              <div><h4>Creator Tools</h4><p>Herramientas oficiales para crear y revisar proyectos de Bedrock.</p></div><span class="tool-tag">Oficial</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="tool-group">
+          <div class="tool-group-head">
+            <div><h3>Generadores con IA</h3></div>
+            <p>Describe una idea y prueba</p>
+          </div>
+          <div class="tool-grid">
+            <a class="tool-card" href="https://www.minemodai.com/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="M8 4v3M16 4v3M8 12h.01M12 12h.01M16 12h.01"/></svg></div>
+              <div><h4>Mine Mod AI</h4><p>Generación asistida para mods, datapacks y addons.</p></div><span class="tool-tag">IA</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://blocksmith.click/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="m12 3 1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5z"/><path d="m18 16 .7 2.3L21 19l-2.3.7L18 22l-.7-2.3L15 19l2.3-.7z"/></svg></div>
+              <div><h4>BlockSmith</h4><p>Generador de addons Bedrock a partir de descripciones.</p></div><span class="tool-tag">IA</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://spaleforce.com/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="m12 3 2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/><path d="M19 16v5M16.5 18.5h5"/></svg></div>
+              <div><h4>Spaleforce</h4><p>IA para generar contenido de Minecraft, modelos y builds.</p></div><span class="tool-tag">IA</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="tool-group">
+          <div class="tool-group-head">
+            <div><h3>Más páginas para Minecraft</h3></div>
+            <p>Una colección para guardar</p>
+          </div>
+          <div class="tool-grid">
+            <a class="tool-card" href="https://www.craftmc.net/tools" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M7 9h10M7 12h7M7 15h5"/></svg></div>
+              <div><h4>CraftMC Tools</h4><p>Calculadoras, seeds, comandos, skins y utilidades Java/Bedrock.</p></div><span class="tool-tag">Tools</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://www.planetminecraft.com/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="m7 14 3-3 2 2 3-4 2 5"/></svg></div>
+              <div><h4>Planet Minecraft</h4><p>Comunidad con skins, mapas, proyectos y recursos.</p></div><span class="tool-tag">Comunidad</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://www.minecraftskins.com/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 20c1.2-3.5 3.5-5 7-5s5.8 1.5 7 5"/></svg></div>
+              <div><h4>MinecraftSkins</h4><p>Galería de skins listas para explorar y usar como referencia.</p></div><span class="tool-tag">Skins</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://www.namemc.com/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 20c1.2-3.5 3.5-5 7-5s5.8 1.5 7 5"/><path d="M16 4h4v4"/></svg></div>
+              <div><h4>NameMC</h4><p>Perfiles, nombres, skins y capas de jugadores de Minecraft.</p></div><span class="tool-tag">Perfiles</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+
+        <div class="tool-group">
+          <div class="tool-group-head">
+            <div><h3>Generadores rápidos</h3></div>
+            <p>Comandos listos para copiar</p>
+          </div>
+          <div class="tool-grid">
+            <a class="tool-card" href="https://mc-tools.games/es/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg></div>
+              <div><h4>MC Commander</h4><p>Generador en español para Give, Summon, TP, Effects, Scoreboard y más.</p></div><span class="tool-tag">Java + Bedrock</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://www.craftcmd.com/loot" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M5 7h14v12H5z"/><path d="M8 4h8M8 11h8M8 15h5"/></svg></div>
+              <div><h4>CraftCMD Loot</h4><p>Construye comandos de loot y prueba rápidamente distintos objetivos.</p></div><span class="tool-tag">Loot</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://www.mctools.gg/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M5 5h14v14H5z"/><path d="m8 16 4-8 4 8M9.5 13h5"/></svg></div>
+              <div><h4>McTools</h4><p>Círculos, totems, resource packs, HUD, conversores y otras utilidades web.</p></div><span class="tool-tag">Web</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="tool-group">
+          <div class="tool-group-head">
+            <div><h3>Crea desde el navegador</h3></div>
+            <p>Edición sin instalar nada</p>
+          </div>
+          <div class="tool-grid">
+            <a class="tool-card" href="https://texturepackmaker.com/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M5 5h14v14H5z"/><path d="M8 8h3v3H8zM13 8h3v3h-3zM8 13h3v3H8z"/></svg></div>
+              <div><h4>Texture Pack Maker</h4><p>Crea texturas, skins y shaders en el navegador para Java y Bedrock.</p></div><span class="tool-tag">Packs</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://mctoolkit.net/bedrock-pack-tools" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M7 9h10M7 12h7M7 15h5"/></svg></div>
+              <div><h4>MC Toolkit</h4><p>Genera manifest.json, revisa packs Bedrock y crea modelos JSON.</p></div><span class="tool-tag">Bedrock</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+            <a class="tool-card" href="https://github.com/dylynhenderson/MinecraftBedrockSkinPackCreator" target="_blank" rel="noopener noreferrer">
+              <div class="tool-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 20c1.2-3.5 3.5-5 7-5s5.8 1.5 7 5"/></svg></div>
+              <div><h4>Bedrock Skin Pack Creator</h4><p>Crea y descarga packs de skins .mcpack directamente desde el navegador.</p></div><span class="tool-tag">Skins</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </a>
+          </div>
+        </div>
+
+      <div class="tool-group">
+        <div class="tool-group-head">
+          <div><h3>Más herramientas</h3></div>
+          <p>Webs de terceros</p>
+        </div>
+        <div class="tool-grid">
+          <a class="tool-card" href="https://mctoolbox.net/tools/commands" target="_blank" rel="noopener noreferrer">
+            <div class="tool-icon site-favicon"><img class="tool-site-icon" src="https://www.google.com/s2/favicons?domain=mctoolbox.net&amp;sz=64" alt="Icono de MC Toolbox" loading="lazy" decoding="async"></div>
+            <div><h4>MC Toolbox</h4><p>26 herramientas de comandos con sintaxis por versión para Java y Bedrock.</p></div><span class="tool-tag">Comandos</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </a>
+          <a class="tool-card" href="https://www.minecraft-heads.com/tools" target="_blank" rel="noopener noreferrer">
+            <div class="tool-icon site-favicon"><img class="tool-site-icon" src="https://www.google.com/s2/favicons?domain=minecraft-heads.com&amp;sz=64" alt="Icono de Minecraft-Heads" loading="lazy" decoding="async"></div>
+            <div><h4>Minecraft-Heads Tools</h4><p>Generador y conversores de cabezas, UUID, skins y comandos.</p></div><span class="tool-tag">Heads</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </a>
+          <a class="tool-card" href="https://mineschematic.com/tools" target="_blank" rel="noopener noreferrer">
+            <div class="tool-icon site-favicon"><img class="tool-site-icon" src="https://www.google.com/s2/favicons?domain=mineschematic.com&amp;sz=64" alt="Icono de MineSchematic" loading="lazy" decoding="async"></div>
+            <div><h4>MineSchematic</h4><p>Comandos, formas, pixel art, calculadoras y conversión de esquemas.</p></div><span class="tool-tag">Schematics</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </a>
+          <a class="tool-card" href="https://laby.net/tools" target="_blank" rel="noopener noreferrer">
+            <div class="tool-icon site-favicon"><img class="tool-site-icon" src="https://www.google.com/s2/favicons?domain=laby.net&amp;sz=64" alt="Icono de Laby" loading="lazy" decoding="async"></div>
+            <div><h4>Laby Tools</h4><p>Skins, colores, MOTD, banners, coordenadas, círculos, XP y más.</p></div><span class="tool-tag">Tools</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </a>
+          <a class="tool-card" href="https://www.plotz.co.uk/" target="_blank" rel="noopener noreferrer">
+            <div class="tool-icon site-favicon"><img class="tool-site-icon" src="https://www.google.com/s2/favicons?domain=plotz.co.uk&amp;sz=64" alt="Icono de Plotz" loading="lazy" decoding="async"></div>
+            <div><h4>Plotz</h4><p>Modelador web para esferas, elipsoides, toros, torres y otras formas.</p></div><span class="tool-tag">Build</span><span class="tool-open"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="tools-note">
+        Consejo: varias herramientas son de terceros. Ahora BROUS reúne más de 40 recursos entre creación, comandos, mundos, skins, packs e IA. Revisa siempre la compatibilidad con tu versión de Java o Bedrock antes de importar un pack o modificar un mundo. Para la creación de contenido Bedrock, Microsoft destaca herramientas como Blockbench, Snowstorm, Minecraft Creator Tools y Chunker. 
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer shell">
+  © 2026 BROUS · v1.2 · <a href="https://unavatar.io" target="_blank" rel="noopener noreferrer">Avatars provided by Unavatar</a>
+</footer>
+
+<script>
+(function(){
+  // EDITA LOS DATOS AQUÍ: cualquier cambio de nombre, foto, enlace o descripción se refleja en la tarjeta.
+  const CHANNELS=[
+    {name:'AlexLGMC',handle:'@alexlgmc',url:'https://youtube.com/@alexlgmc',avatar:'https://unavatar.io/youtube/alexlgmc',accent:'#39a96b',desc:'Minecraft, aventuras y contenido para pasar un buen rato.'},
+    {name:'TitanicusPrime',handle:'@titanicusprime',url:'https://youtube.com/@titanicusprime',avatar:'https://unavatar.io/youtube/titanicusprime',accent:'#8a9cff',desc:'Minecraft, momentos y entretenimiento para la comunidad.'},
+    {name:'DOMI MC',handle:'@domi_mc',url:'https://youtube.com/@domi_mc',avatar:'https://unavatar.io/youtube/domi_mc',accent:'#f0a34a',desc:'Contenido de Minecraft con aventuras y momentos divertidos.'},
+    {name:'XaniLMC',handle:'@xanilmc',url:'https://youtube.com/@xanilmc',avatar:'https://unavatar.io/youtube/xanilmc',accent:'#48a7ff',desc:'Minecraft y nuevas ideas para descubrir en cada video.'},
+    {name:'NEÓN GD',handle:'@neongd-gd',url:'https://youtube.com/@neongd-gd',avatar:'https://unavatar.io/youtube/neongd-gd',accent:'#d85cff',desc:'Minecraft y contenido gaming con estilo propio.'},
+    {name:'FelixMC',handle:'@FelixGamer-XD',url:'https://www.youtube.com/@FelixGamer-XD',avatar:'https://unavatar.io/youtube/FelixGamer-XD',accent:'#5cc8ff',desc:'Minecraft, entretenimiento y nuevos videos para la comunidad.'},
+    {name:'StiveChiquito',handle:'@stivechiquito',url:'https://youtube.com/@stivechiquito',avatar:'https://unavatar.io/youtube/stivechiquito',accent:'#ff6b6b',desc:'Minecraft y momentos para disfrutar y compartir.'},
+    {name:'AlexProGamer',handle:'@alexprogamer-e8y',url:'https://youtube.com/@alexprogamer-e8y',avatar:'https://unavatar.io/youtube/alexprogamer-e8y',accent:'#ff9a4d',desc:'Contenido gaming con Minecraft como protagonista.'},
+    {name:'PosNoLegend2569',handle:'@posnolegend2569',url:'https://youtube.com/@posnolegend2569',avatar:'https://unavatar.io/youtube/posnolegend2569',accent:'#9c7cff',desc:'Minecraft, entretenimiento y videos para la comunidad.'},
+    {name:'LeoBros52',handle:'@leobros52',url:'https://youtube.com/@leobros52',avatar:'https://unavatar.io/youtube/leobros52',accent:'#62d68a',desc:'Aventuras de Minecraft y contenido para descubrir.'}
+  ];
+
+  const SECONDARY_CHANNELS=[
+    {name:'Profe Titanicus Prime',handle:'@profetitanicusprime',url:'https://youtube.com/@profetitanicusprime?si=LOOviJ9xdEtiow1n',avatar:'https://unavatar.io/youtube/profetitanicusprime',accent:'#b18cff',desc:'Canal secundario con más contenido de la comunidad de Titanicus.'},
+    {name:'AlexGamer2',handle:'@alexgamer2-w2n',url:'https://youtube.com/@alexgamer2-w2n?si=94mnvFeMgM8hD9ex',avatar:'https://unavatar.io/youtube/alexgamer2-w2n',accent:'#ffb35c',desc:'Canal secundario para más contenido gaming y Minecraft.'}
+  ];
+
+  const brous=document.getElementById('brousPanel');
+  const social=document.getElementById('socialPanel');
+  const more=document.getElementById('morePanel');
+  const grid=document.getElementById('creatorGrid');
+  const secondaryGrid=document.getElementById('secondaryGrid');
+  let brousReady=false;
+  let avatarQueue=[];
+
+  function fallbackAvatar(name){
+    const letters=name.replace(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/g,'').slice(0,2).toUpperCase();
+    return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#18221c"/><text x="50" y="60" text-anchor="middle" fill="#fff" font-size="30" font-family="Arial" font-weight="900">'+letters+'</text></svg>');
+  }
+
+  function creatorMarkup(c,i){
+    return `<a class="creator" data-index="${i}" style="--accent:${c.accent}" href="${c.url}" target="_blank" rel="noopener noreferrer">
+      <img class="avatar" src="${fallbackAvatar(c.name)}" data-src="${c.avatar}" data-name="${c.name}" alt="Foto de perfil de ${c.name}" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+      <div><h3 class="creator-name">${c.name}</h3><p class="creator-handle">${c.handle}</p><p class="creator-desc">${c.desc}</p></div>
+      <span class="open" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+    </a>`;
+  }
+
+  function queueAvatars(root){
+    const imgs=[...(root?.querySelectorAll('img[data-src]')||[])];
+    imgs.forEach(img=>{
+      img.addEventListener('error',()=>{img.removeAttribute('data-src');img.src=fallbackAvatar(img.dataset.name||'?');}, {once:true});
+    });
+    avatarQueue.push(...imgs);
+  }
+
+  function upgradeToolIcons(){
+    document.querySelectorAll('.tool-card').forEach(card=>{
+      const iconBox=card.querySelector('.tool-icon');
+      if(!iconBox || iconBox.dataset.faviconReady) return;
+      try{
+        const url=new URL(card.href);
+        const domain=url.hostname.replace(/^www\./,'');
+        const img=document.createElement('img');
+        img.className='tool-site-icon';
+        img.alt='Icono de '+domain;
+        img.loading='lazy';
+        img.decoding='async';
+        img.referrerPolicy='no-referrer';
+        img.src='https://www.google.com/s2/favicons?domain='+encodeURIComponent(domain)+'&sz=64';
+        img.addEventListener('error',()=>{
+          img.remove();
+          iconBox.classList.remove('site-favicon');
+          iconBox.innerHTML='<svg class=\"icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 6h16v12H4z\"/><path d=\"M8 10h8M8 14h5\"/></svg>';
+        },{once:true});
+        iconBox.replaceChildren(img);
+        iconBox.classList.add('site-favicon');
+        iconBox.dataset.faviconReady='1';
+      }catch{}
+    });
+  }
+
+  function renderCreators(){
+    grid.innerHTML=CHANNELS.map(creatorMarkup).join('');
+    secondaryGrid.innerHTML=SECONDARY_CHANNELS.map(creatorMarkup).join('');
+    avatarQueue=[];
+    queueAvatars(grid);
+    queueAvatars(secondaryGrid);
+  }
+
+  function loadAvatar(img){
+    if(!img || !img.dataset.src) return;
+    const src=img.dataset.src;
+    delete img.dataset.src;
+    img.src=src;
+  }
+
+  function loadAvatarBatch(count=4){
+    for(let i=0;i<count;i++){
+      const img=avatarQueue.shift();
+      if(!img) break;
+      loadAvatar(img);
+    }
+    if(avatarQueue.length){
+      setTimeout(()=>loadAvatarBatch(4),180);
+    }
+  }
+
+  function prepareBrous(){
+    if(brousReady) return;
+    brousReady=true;
+    loadAvatarBatch(3);
+  }
+
+  const panels=[brous,social,more];
+  const triggers=[['showBrous',brous],['showSocial',social],['showMore',more]].map(([id,p])=>[document.getElementById(id),p]);
+
+  function closeAll(){
+    panels.forEach(p=>p.classList.remove('show'));
+    triggers.forEach(([b])=>b.setAttribute('aria-expanded','false'));
+  }
+
+  function show(panel){
+    const wasOpen=panel.classList.contains('show');
+    closeAll();
+    if(wasOpen) return;
+    panel.classList.add('show');
+    triggers.forEach(([b,p])=>b.setAttribute('aria-expanded',String(p===panel)));
+    if(panel===brous) prepareBrous();
+    requestAnimationFrame(()=>panel.scrollIntoView({behavior:'smooth',block:'start'}));
+  }
+
+  renderCreators();
+  upgradeToolIcons();
+  triggers.forEach(([b,p])=>b.addEventListener('click',()=>show(p)));
+  document.querySelectorAll('.panel-close').forEach(b=>b.addEventListener('click',()=>{
+    closeAll();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }));
+  window.addEventListener('keydown',e=>{
+    if(e.key==='Escape' && panels.some(p=>p.classList.contains('show'))){
+      closeAll();
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+  });
+})();
+</script>
+<script>
+/* Reproductor del video destacado.
+   Para cambiar de video: edita data-video="..." en <div id="player"> (y la miniatura se actualiza sola). */
+(function(){
+  const box=document.getElementById('player');
+  if(!box) return;
+  const VIDEO=box.dataset.video;
+  const playBtn=document.getElementById('playBtn');
+  const poster=document.getElementById('posterImg');
+  const stage=document.getElementById('stage');
+  const fallback=document.getElementById('fallback');
+  const fbText=document.getElementById('fbText');
+  const retryBtn=document.getElementById('retryBtn');
+  const isLocal=location.protocol==='file:';
+  let player=null, apiPromise=null, timer=null;
+
+  // miniatura: si no existe la de buena calidad, usa la estándar
+  poster.src='https://i.ytimg.com/vi/'+VIDEO+'/hqdefault.jpg';
+  poster.addEventListener('error',()=>{
+    if(!poster.dataset.tried){poster.dataset.tried='1';poster.src='https://i.ytimg.com/vi/'+VIDEO+'/default.jpg';}
+    else poster.style.visibility='hidden';
+  });
+
+  function loadApi(){
+    if(window.YT && window.YT.Player) return Promise.resolve();
+    if(apiPromise) return apiPromise;
+    apiPromise=new Promise((resolve,reject)=>{
+      const prev=window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady=function(){
+        if(typeof prev==='function') prev();
+        resolve();
+      };
+      const s=document.createElement('script');
+      s.src='https://www.youtube.com/iframe_api';
+      s.async=true;
+      s.onerror=()=>{apiPromise=null;reject(new Error('api'));};
+      document.head.appendChild(s);
+    });
+    return apiPromise;
+  }
+
+  function cleanup(){
+    clearTimeout(timer);
+    box.classList.remove('is-loading');
+    if(player && typeof player.destroy==='function'){try{player.destroy();}catch(_){}}
+    player=null;
+    stage.innerHTML='';
+  }
+
+  function fail(message){
+    cleanup();
+    stage.hidden=true;
+    playBtn.hidden=true;
+    fbText.textContent=message;
+    fallback.hidden=false;
+  }
+
+  function errorMessage(code){
+    if(code===101||code===150) return 'El dueño del video no permite reproducirlo fuera de YouTube.';
+    if(code===100) return 'El video no está disponible o es privado.';
+    if(code===153||code===152){
+      return isLocal
+        ? 'YouTube no reproduce videos dentro de archivos abiertos desde el dispositivo (file://). Sube esta página a un hosting, por ejemplo GitHub Pages o Netlify, y el video se verá aquí mismo.'
+        : 'YouTube no recibió el origen de la página. Revisa que el navegador o una extensión no esté bloqueando el referrer.';
+    }
+    return 'YouTube no dejó cargar el video dentro de la página (código '+code+').';
+  }
+
+  function start(){
+    fallback.hidden=true;
+    playBtn.hidden=true;
+    stage.hidden=false;
+    stage.innerHTML='<div id="ytTarget"></div>';
+    box.classList.add('is-loading');
+    clearTimeout(timer);
+    timer=setTimeout(()=>fail('El video tardó demasiado en cargar. Revisa tu conexión o un bloqueador de contenido.'),15000);
+
+    loadApi().then(()=>{
+      const vars={autoplay:1,rel:0,playsinline:1,modestbranding:1};
+      if(/^https?:$/.test(location.protocol)) vars.origin=location.origin;
+      player=new YT.Player('ytTarget',{
+        videoId:VIDEO,
+        width:'100%',
+        height:'100%',
+        playerVars:vars,
+        events:{
+          onReady:e=>{
+            clearTimeout(timer);
+            box.classList.remove('is-loading');
+            try{e.target.playVideo();}catch(_){}
+          },
+          onError:e=>fail(errorMessage(e.data))
+        }
+      });
+    }).catch(()=>fail('No se pudo conectar con YouTube. Revisa tu conexión o un bloqueador de contenido.'));
+  }
+
+  playBtn.addEventListener('click',start);
+  retryBtn.addEventListener('click',start);
+})();
+
+</script>
+</body>
+</html>
